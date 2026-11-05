@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [develop, staging, production]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: tests (Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # La misma imagen que el desarrollo local (dockerfile.dev): el check corre adentro.
+      - name: Construir imagen de desarrollo
+        run: docker build -f dockerfile.dev -t lib-mapa-dev .
+
+      - name: Tests
+        run: docker run --rm lib-mapa-dev npm test

@@ -1,0 +1,14 @@
+{
+  "name": "@colportores/lib-mapa",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Librería compartida del mapa (estilo MapLibre, glifos, sprites, tokens de zonas) para el panel de coordinadores y la app móvil",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test pruebas/*.test.mjs"
+  }
+}

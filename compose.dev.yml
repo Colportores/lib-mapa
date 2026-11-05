@@ -1,0 +1,20 @@
+# Entorno de desarrollo: todo corre aca adentro (install, tests, validacion del estilo).
+#
+#   docker compose -f compose.dev.yml build                  # solo si cambia dockerfile.dev
+#   docker compose -f compose.dev.yml run --rm app npm test
+#   docker compose -f compose.dev.yml run --rm app npm install <paquete>
+#
+# Una imagen por repo (la misma con cualquier `-p <agente>`); node_modules vive en un
+# volumen aislado por proyecto, no en el bind mount del host.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    image: lib-mapa-dev:latest
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+
+volumes:
+  node_modules:
