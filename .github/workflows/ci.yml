@@ -24,6 +24,6 @@ jobs:
       - name: Tests
         run: docker run --rm lib-mapa-dev npm test
 
-      # gl-style-validate sobre el estilo generado (dist/estilo/). Hasta lib-mapa#2 no hay estilo y el paso solo avisa.
+      # Genera el estilo en dist/estilo/ y le corre gl-style-validate (el mismo par que `npm run check`).
       - name: Validar estilo
-        run: docker run --rm lib-mapa-dev npm run validar-estilo
+        run: docker run --rm lib-mapa-dev sh -c "npm run generar-estilo && npm run validar-estilo"

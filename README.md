@@ -2,13 +2,13 @@
 
 Libreria compartida del mapa de Colportores: el estilo MapLibre (con los numeros de puerta de OpenStreetMap), los glifos, los sprites y los tokens de zonas y estados de casa. La usan el panel de coordinadores y la app movil, para que los dos dibujen el mismo mapa.
 
-**Estado: en construccion** — esqueleto listo (Docker, CI y estructura); todavia sin el estilo. El orden de trabajo esta en los issues del repo.
+**Estado: en construccion** — el estilo, la paleta, los glifos y los sprites ya estan aca (lib-mapa#2); faltan los numeros de puerta de OSM, los tokens y la primera release. El orden de trabajo esta en los issues del repo.
 
 ## Contexto
 
 Parte del sistema [Colportores](https://github.com/Colportores). La arquitectura y las decisiones viven en la documentacion de la organizacion (`docs-organizacion`: ADR-019 libreria del mapa, ADR-011 mapas offline).
 
-- Hoy el estilo se genera en `backend-supabase/tiles/`; pasa a este repo y backend queda con el publicador de tiles y los secretos.
+- El estilo se genera aca (`estilo/src/estilo.mjs` + `estilo/paleta.json`); vino de `backend-supabase/tiles/`, que se queda con el publicador de tiles y los secretos (la historia anterior sigue en ese repo).
 - Lo consumen: la app movil (dependencia git de pub con tag `vX.Y.Z`, ruta `dart`) y el panel y el backend (dependencia npm `github:Colportores/lib-mapa#vX.Y.Z`).
 - Stack: Node 22 para el estilo y los tokens; salidas en Dart y TypeScript.
 
@@ -38,7 +38,8 @@ Todo corre en Docker (Node 22, el mismo que usa el CI):
 docker compose -f compose.dev.yml build                       # solo si cambia dockerfile.dev
 docker compose -f compose.dev.yml run --rm app npm ci         # si cambia package-lock.json (node_modules vive en un volumen)
 docker compose -f compose.dev.yml run --rm app npm test       # tests
-docker compose -f compose.dev.yml run --rm app npm run check  # tests + gl-style-validate sobre el estilo generado
+docker compose -f compose.dev.yml run --rm app npm run check  # tests + genera dist/estilo/ + gl-style-validate
+docker compose -f compose.dev.yml run --rm app node estilo/src/cli.mjs --url-base <URL donde van los glyphs y sprites>
 ```
 
 Ramas: `feature/* -> develop -> staging -> production` (integracion en `develop`, default `production`), siempre por PR.
