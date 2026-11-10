@@ -1,0 +1,15 @@
+// Solo para comprobar que el paquete TS compila (`npm run typecheck`); no emite nada: cada front lo compila con
+// su configuración (moduleResolution "bundler", como el panel).
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"]
+}

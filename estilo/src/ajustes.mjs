@@ -5,6 +5,11 @@
 // Si una versión nueva de basemaps cambia el id de una capa ajustada, armar el estilo falla (no se pierde
 // el ajuste en silencio).
 
+import { leerTokens } from '../../generadores/tokens.mjs';
+
+/** El minzoom de los números sale del token `zoom.numerosDePuerta` (lib-mapa#4): uno solo para el estilo y los fronts. */
+const ZOOM_DE_LOS_NUMEROS = leerTokens().zoom.numerosDePuerta;
+
 /**
  * Números de puerta de OSM (lib-mapa#3, ADR-019; decisión del orquestador del 05/11, P4): se ven desde el
  * zoom de calle del móvil, z16 de MapLibre (el z17 del prototipo, que usa teselas de 256 px), con letra 11
@@ -23,7 +28,7 @@
  */
 export const AJUSTES = Object.freeze({
   address_label: Object.freeze({
-    minzoom: 16,
+    minzoom: ZOOM_DE_LOS_NUMEROS,
     layout: Object.freeze({ 'text-size': 11, 'text-max-width': 10 }),
     paint: Object.freeze({ 'text-halo-width': 1.5 }),
   }),

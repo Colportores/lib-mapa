@@ -8,16 +8,30 @@
   "engines": {
     "node": ">=22"
   },
+  "exports": {
+    ".": "./ts/src/index.ts",
+    "./tokens": "./ts/src/tokens.g.ts",
+    "./capas": "./ts/src/capas.g.ts",
+    "./tokens.json": "./tokens/tokens.json",
+    "./estilo": "./estilo/src/estilo.mjs",
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
   "scripts": {
     "test": "node --test pruebas/*.test.mjs",
+    "generar-tokens": "node generadores/cli.mjs",
+    "comprobar-tokens": "node generadores/cli.mjs --comprobar",
+    "typecheck": "tsc -p ts/tsconfig.json",
     "generar-estilo": "node estilo/src/cli.mjs --url-base https://REEMPLAZAR/estilo",
+    "generar-capas": "node estilo/capas/cli.mjs",
     "validar-estilo": "node estilo/validar.mjs",
-    "check": "npm test && npm run generar-estilo && npm run validar-estilo"
+    "check": "npm test && npm run comprobar-tokens && npm run typecheck && npm run generar-estilo && npm run generar-capas && npm run validar-estilo"
   },
   "dependencies": {
     "@protomaps/basemaps": "5.7.2"
   },
   "devDependencies": {
-    "@maplibre/maplibre-gl-style-spec": "^26.6.0"
+    "@maplibre/maplibre-gl-style-spec": "^26.6.0",
+    "typescript": "^5.9.3"
   }
 }

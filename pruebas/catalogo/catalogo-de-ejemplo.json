@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "generado_en": "2026-11-10T12:00:00Z",
+  "fuente": { "proveedor": "Protomaps (datos de OpenStreetMap)", "atribucion": "© OpenStreetMap contributors", "licencia": "ODbL 1.0" },
+  "estilo": { "url": "estilo/colportores.json", "fuente_de_tiles": "protomaps", "version": "3b5d5c3712955042212316173ccf37be800e3d2f4c0e1e6c4b2d7a9f8e1c0a64" },
+  "paquetes": [
+    {
+      "id": "ciudad-montevideo",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d40",
+      "nombre": "Montevideo",
+      "bbox": [-56.433, -34.945, -55.948, -34.701],
+      "zoom_min": 0,
+      "zoom_max": 15,
+      "tamano_bytes": 10920234,
+      "version": "581c301248397e2f6ad764adeb4c13f45a564bf129587731e1629e1c9935022a",
+      "partes": [
+        { "archivo": "paquetes/ciudad/montevideo.581c30124839.pmtiles", "tamano_bytes": 10920234, "sha256": "581c301248397e2f6ad764adeb4c13f45a564bf129587731e1629e1c9935022a", "bbox": [-56.433, -34.945, -55.948, -34.701] }
+      ],
+      "fuente_build": "20261006",
+      "actualizado_en": "2026-10-06T15:31:41Z"
+    },
+    {
+      "id": "ciudad-salto",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d41",
+      "nombre": "Salto",
+      "zoom_min": 0,
+      "zoom_max": 15,
+      "tamano_bytes": 90000000,
+      "version": "1111111111111111111111111111111111111111111111111111111111111111",
+      "partes": [
+        { "archivo": "paquetes/ciudad/salto.parte1de2.aaaaaaaaaaaa.pmtiles", "tamano_bytes": 50000000, "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" },
+        { "archivo": "paquetes/ciudad/salto.parte2de2.bbbbbbbbbbbb.pmtiles", "tamano_bytes": 40000000, "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" }
+      ]
+    },
+    {
+      "id": "ciudad-sin-partes",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d42",
+      "nombre": "Sin partes",
+      "tamano_bytes": 0,
+      "version": "2222222222222222222222222222222222222222222222222222222222222222",
+      "partes": []
+    },
+    {
+      "id": "ciudad-otro-servidor",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d43",
+      "nombre": "Otro servidor",
+      "tamano_bytes": 1000,
+      "version": "3333333333333333333333333333333333333333333333333333333333333333",
+      "partes": [
+        { "archivo": "https://otro.example.com/mapas/paquetes/ciudad/x.333333333333.pmtiles", "tamano_bytes": 1000, "sha256": "3333333333333333333333333333333333333333333333333333333333333333" }
+      ]
+    },
+    {
+      "id": "ciudad-sin-esquema",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d44",
+      "nombre": "Sin esquema",
+      "tamano_bytes": 1000,
+      "version": "4444444444444444444444444444444444444444444444444444444444444444",
+      "partes": [
+        { "archivo": "//otro.example.com/mapas/paquetes/ciudad/x.444444444444.pmtiles", "tamano_bytes": 1000, "sha256": "4444444444444444444444444444444444444444444444444444444444444444" }
+      ]
+    },
+    {
+      "id": "ciudad-sube-de-carpeta",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d45",
+      "nombre": "Sube de carpeta",
+      "tamano_bytes": 1000,
+      "version": "5555555555555555555555555555555555555555555555555555555555555555",
+      "partes": [
+        { "archivo": "../otro-bucket/x.555555555555.pmtiles", "tamano_bytes": 1000, "sha256": "5555555555555555555555555555555555555555555555555555555555555555" }
+      ]
+    },
+    {
+      "id": "ciudad-ruta-absoluta",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d46",
+      "nombre": "Ruta absoluta",
+      "tamano_bytes": 1000,
+      "version": "6666666666666666666666666666666666666666666666666666666666666666",
+      "partes": [
+        { "archivo": "/storage/v1/object/public/otro-bucket/x.666666666666.pmtiles", "tamano_bytes": 1000, "sha256": "6666666666666666666666666666666666666666666666666666666666666666" }
+      ]
+    },
+    {
+      "id": "ciudad-una-parte-mala",
+      "nivel": "ciudad",
+      "ambito_id": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d47",
+      "nombre": "Una parte mala",
+      "tamano_bytes": 2000,
+      "version": "7777777777777777777777777777777777777777777777777777777777777777",
+      "partes": [
+        { "archivo": "paquetes/ciudad/mala.parte1de2.777777777777.pmtiles", "tamano_bytes": 1000, "sha256": "7777777777777777777777777777777777777777777777777777777777777777" },
+        { "archivo": "https://otro.example.com/mala.parte2de2.888888888888.pmtiles", "tamano_bytes": 1000, "sha256": "8888888888888888888888888888888888888888888888888888888888888888" }
+      ]
+    }
+  ],
+  "retirados": [
+    { "archivo": "paquetes/ciudad/montevideo.0a1b2c3d4e5f.pmtiles", "desde": "2026-10-06T15:32:09Z" }
+  ]
+}
