@@ -21,9 +21,28 @@ jobs:
       - name: Construir imagen de desarrollo
         run: docker build -f dockerfile.dev -t lib-mapa-dev .
 
+      # Incluye la paridad TS == JSON de los tokens (pruebas/tokens.test.mjs) y los casos del catálogo.
       - name: Tests
         run: docker run --rm lib-mapa-dev npm test
 
-      # Genera el estilo en dist/estilo/ y le corre gl-style-validate (el mismo par que `npm run check`).
-      - name: Validar estilo
-        run: docker run --rm lib-mapa-dev sh -c "npm run generar-estilo && npm run validar-estilo"
+      # Los .g. (Dart y TS) están al día con tokens/tokens.json y el paquete TS compila.
+      - name: Tokens generados y TypeScript
+        run: docker run --rm lib-mapa-dev sh -c "npm run comprobar-tokens && npm run typecheck"
+
+      # Genera el estilo en dist/estilo/ y los fragmentos de capa en dist/capas/, y les corre gl-style-validate.
+      - name: Validar estilo y fragmentos de capa
+        run: docker run --rm lib-mapa-dev sh -c "npm run generar-estilo && npm run generar-capas && npm run validar-estilo"
+
+  dart:
+    name: paridad Dart (Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      # El paquete colportores_mapa (dart/) compila y sus constantes son las de tokens/tokens.json (Dart == JSON).
+      # Misma versión de Dart que la app móvil (Flutter 3.44).
+      - name: Analizar y comprobar la paridad
+        run: >-
+          docker run --rm -v "$PWD/tokens:/w/tokens:ro" -v "$PWD/dart:/w/dart" -w /w/dart dart:3.12
+          sh -c "dart pub get && dart analyze --fatal-infos && dart run tool/paridad.dart"

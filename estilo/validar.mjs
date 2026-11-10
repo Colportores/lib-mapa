@@ -1,6 +1,6 @@
 // Valida los estilos MapLibre generados con `gl-style-validate` (@maplibre/maplibre-gl-style-spec).
 //
-//   node estilo/validar.mjs                 # valida los *.json de dist/estilo/ (si todavia no hay, avisa y sale bien)
+//   node estilo/validar.mjs                 # valida los *.json de dist/estilo/ y dist/capas/ (si todavia no hay, avisa y sale bien)
 //   node estilo/validar.mjs <archivo|carpeta>...
 //
 // Sin argumentos no falla si falta dist/estilo/: el estilo se genera desde lib-mapa#2. Con argumentos, una ruta
@@ -10,7 +10,8 @@ import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
-const RUTA_POR_DEFECTO = 'dist/estilo';
+// dist/capas/ tiene el estilo de prueba con los fragmentos de capa (lib-mapa#4, `npm run generar-capas`).
+const RUTAS_POR_DEFECTO = ['dist/estilo', 'dist/capas'];
 const validador = fileURLToPath(new URL('../node_modules/.bin/gl-style-validate', import.meta.url));
 
 function jsonDe(ruta) {
@@ -25,7 +26,7 @@ function jsonDe(ruta) {
 
 const argumentos = process.argv.slice(2);
 const porDefecto = argumentos.length === 0;
-const rutas = (porDefecto ? [RUTA_POR_DEFECTO] : argumentos).map((r) => resolve(r));
+const rutas = (porDefecto ? RUTAS_POR_DEFECTO : argumentos).map((r) => resolve(r));
 
 const faltantes = rutas.filter((r) => !existsSync(r));
 if (faltantes.length > 0 && !porDefecto) {
@@ -36,7 +37,7 @@ if (faltantes.length > 0 && !porDefecto) {
 const archivos = rutas.filter((r) => existsSync(r)).flatMap(jsonDe);
 if (archivos.length === 0) {
   if (porDefecto) {
-    console.log(`validar-estilo: todavia no hay estilo generado en ${RUTA_POR_DEFECTO}/ (llega en lib-mapa#2); nada que validar.`);
+    console.log(`validar-estilo: todavia no hay estilo generado en ${RUTAS_POR_DEFECTO.join('/ ni ')}/; nada que validar.`);
     process.exit(0);
   }
   console.error(`validar-estilo: no hay archivos JSON en ${rutas.join(', ')}`);

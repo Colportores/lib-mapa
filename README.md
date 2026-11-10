@@ -2,14 +2,14 @@
 
 Libreria compartida del mapa de Colportores: el estilo MapLibre (con los numeros de puerta de OpenStreetMap), los glifos, los sprites y los tokens de zonas y estados de casa. La usan el panel de coordinadores y la app movil, para que los dos dibujen el mismo mapa.
 
-**Estado: en construccion** — el estilo, la paleta, los glifos y los sprites ya estan aca (lib-mapa#2); faltan los numeros de puerta de OSM, los tokens y la primera release. El orden de trabajo esta en los issues del repo.
+**Estado: en construccion** — el estilo, la paleta, los glifos y los sprites (lib-mapa#2), los numeros de puerta de OSM (lib-mapa#3) y los tokens con sus paquetes Dart y TS (lib-mapa#4) ya estan aca; falta la primera release (lib-mapa#5).
 
 ## Contexto
 
 Parte del sistema [Colportores](https://github.com/Colportores). La arquitectura y las decisiones viven en la documentacion de la organizacion (`docs-organizacion`: ADR-019 libreria del mapa, ADR-011 mapas offline).
 
 - El estilo se genera aca (`estilo/src/estilo.mjs` + `estilo/paleta.json`); vino de `backend-supabase/tiles/`, que se queda con el publicador de tiles y los secretos (la historia anterior sigue en ese repo).
-- Lo consumen: la app movil (dependencia git de pub con tag `vX.Y.Z`, ruta `dart`) y el panel y el backend (dependencia npm `github:Colportores/lib-mapa#vX.Y.Z`).
+- Lo consumen: la app movil (paquete Dart `colportores_mapa`: dependencia git de pub con tag `vX.Y.Z`, ruta `dart`) y el panel y el backend (paquete npm `@colportores/lib-mapa`: `github:Colportores/lib-mapa#vX.Y.Z`, el `package.json` de la raiz exporta `ts/` y `estilo/`).
 - Stack: Node 22 para el estilo y los tokens; salidas en Dart y TypeScript.
 
 ## Lo que este repo no puede hacer
@@ -38,7 +38,8 @@ Todo corre en Docker (Node 22, el mismo que usa el CI):
 docker compose -f compose.dev.yml build                       # solo si cambia dockerfile.dev
 docker compose -f compose.dev.yml run --rm app npm ci         # si cambia package-lock.json (node_modules vive en un volumen)
 docker compose -f compose.dev.yml run --rm app npm test       # tests
-docker compose -f compose.dev.yml run --rm app npm run check  # tests + genera dist/estilo/ + gl-style-validate
+docker compose -f compose.dev.yml run --rm app npm run check  # tests + tokens al dia + typecheck + genera dist/estilo/ y dist/capas/ + gl-style-validate
+docker compose -f compose.dev.yml run --rm app npm run generar-tokens  # tokens/tokens.json -> dart/lib/tokens.g.dart y ts/src/*.g.ts
 docker compose -f compose.dev.yml run --rm app node estilo/src/cli.mjs --url-base <URL donde van los glyphs y sprites>
 ```
 

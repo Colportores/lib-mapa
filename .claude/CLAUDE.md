@@ -4,7 +4,7 @@ Libreria compartida del mapa de Colportores (ADR-019): estilo MapLibre (v8), gli
 
 ## Stack
 - Node 22 + ESM (`.mjs`), tests con `node --test`. Validacion del estilo con `gl-style-validate` (`@maplibre/maplibre-gl-style-spec`).
-- Salidas: paquete Dart `colportores_mapa` (`dart/`) y paquete TS (`ts/`), generados desde `tokens/tokens.json`.
+- Salidas: paquete Dart `colportores_mapa` (`dart/`) y paquete TS (`ts/`, exportado por el `package.json` de la raiz), generados desde `tokens/tokens.json` con `npm run generar-tokens`. Paridad: TS == JSON en `npm test`; Dart == JSON con `dart/tool/paridad.dart` (job `dart` del CI, imagen `dart:3.12`).
 
 ## Reglas
 - **Docker obligatorio**: nada se instala ni se corre fuera del contenedor.

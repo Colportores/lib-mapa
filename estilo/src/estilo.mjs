@@ -12,6 +12,7 @@
 import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { layers, namedFlavor } from '@protomaps/basemaps';
+import { leerTokens } from '../../generadores/tokens.mjs';
 import { aplicarAjustes } from './ajustes.mjs';
 
 export const NOMBRE_DE_LA_FUENTE = 'protomaps';
@@ -23,8 +24,8 @@ export const NOMBRE_DE_LA_FUENTE = 'protomaps';
  */
 export const URL_A_REEMPLAZAR = 'pmtiles://REEMPLAZAR';
 
-export const ATRIBUCION =
-  '<a href="https://github.com/protomaps/basemaps">Protomaps</a> © <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>';
+/** La atribución de la fuente de tiles: el token `atribucion.html` (lib-mapa#4), el mismo que usan los fronts. */
+export const ATRIBUCION = leerTokens().atribucion.html;
 
 const PAQUETE = JSON.parse(readFileSync(new URL('../../package.json', import.meta.url), 'utf8'));
 
