@@ -9,6 +9,11 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test pruebas/*.test.mjs"
+    "test": "node --test pruebas/*.test.mjs",
+    "validar-estilo": "node estilo/validar.mjs",
+    "check": "npm test && npm run validar-estilo"
+  },
+  "devDependencies": {
+    "@maplibre/maplibre-gl-style-spec": "^26.6.0"
   }
 }

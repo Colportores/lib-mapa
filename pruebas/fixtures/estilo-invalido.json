@@ -1,0 +1,8 @@
+{
+  "version": 8,
+  "name": "fixture-invalido",
+  "sources": {},
+  "layers": [
+    { "id": "fondo", "type": "capa-que-no-existe", "paint": { "background-color": "#F6F5F0" } }
+  ]
+}
