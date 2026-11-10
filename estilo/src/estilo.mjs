@@ -1,6 +1,7 @@
 // El estilo de MapLibre de Colportores: UNO solo, compartido por la app (front-colportores-mobile#286)
 // y el panel de coordinadores (ADR-011, ADR-019). Las capas salen de @protomaps/basemaps (el esquema de
-// los tiles de Protomaps), pintadas con la paleta del canvas (estilo/paleta.json).
+// los tiles de Protomaps), pintadas con la paleta del canvas (estilo/paleta.json) y con los ajustes propios
+// de estilo/src/ajustes.mjs (desde qué zoom, tamaño y halo de algunas capas).
 //
 // Es determinista: la misma paleta, la misma URL base y la misma versión de la librería dan el mismo
 // archivo, byte por byte, así que republicarlo sin cambios no cambia nada.
@@ -11,6 +12,7 @@
 import { readFileSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { layers, namedFlavor } from '@protomaps/basemaps';
+import { aplicarAjustes } from './ajustes.mjs';
 
 export const NOMBRE_DE_LA_FUENTE = 'protomaps';
 
@@ -76,7 +78,7 @@ export function armarEstilo({ urlBase, paleta, version = VERSION_DE_BASEMAPS }) 
         url: URL_A_REEMPLAZAR,
       },
     },
-    layers: layers(NOMBRE_DE_LA_FUENTE, flavorColportores(paleta), { lang: paleta.idioma }).filter(
+    layers: aplicarAjustes(layers(NOMBRE_DE_LA_FUENTE, flavorColportores(paleta), { lang: paleta.idioma })).filter(
       (capa) => !(paleta.sin_capas ?? []).includes(capa.id),
     ),
     glyphs: `${base}/glyphs/{fontstack}/{range}.pbf`,
