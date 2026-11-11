@@ -16,15 +16,15 @@ description: Sumar o cambiar un token del mapa de lib-mapa (estados de casa, pal
 ## Sumar o cambiar un token
 
 1. Editá `tokens/tokens.json`. Convenciones: camelCase; colores `#RRGGBB` en mayúsculas; zooms en escala **MapLibre**; las claves que empiezan con `$` son comentarios (no se generan): explicá de dónde sale el valor.
-2. Si los dos fronts todavía no coinciden, el valor va como `{ "pendiente": "<dónde se decide>", "panel": …, "movil": … }`. **No elijas uno vos**: la decisión es de Cristian (o del orquestador, si es §2). Hoy: `zonaSinColor`, `zoom.maximo` y la franja clara de «Entrega y pago».
+2. Si los dos fronts todavía no coinciden, el valor va como `{ "pendiente": "<dónde se decide>", "panel": …, "movil": … }`. **No elijas uno vos**: la decisión es de Cristian (o del orquestador, si es §2). Hoy: `zonaSinColor` (`zoom.maximo` = 19 y la franja clara #4D76B1 se decidieron el 10/11).
 3. Regenerá (en Docker): `docker compose -f compose.dev.yml run --rm -T app npm run generar-tokens`.
 4. Token nuevo: sumalo en `dart/tool/paridad.dart` (la paridad falla hasta que el JSON que arma desde las constantes coincide con `tokens.json`). Cuando un pendiente se decide: reemplazá el objeto por el valor, regenerá y cambiá `_color`/`_numero` en `paridad.dart`.
 5. Verificá:
    - `npm run check` (incluye `pruebas/tokens.test.mjs`: forma, contraste AA, `.g.` al día, paridad TS == JSON).
-   - Paridad Dart == JSON (en el CI es el job `dart`, con `dart:3.12`):
+   - Paridad Dart == JSON y casos del contraste (en el CI es el job `dart`, con `dart:3.12`):
      ```sh
-     docker run --rm -v "$PWD/tokens:/w/tokens:ro" -v "$PWD/dart:/w/dart" -w /w/dart dart:3.12 \
-       sh -c "dart pub get && dart analyze --fatal-infos && dart run tool/paridad.dart"
+     docker run --rm -v "$PWD/tokens:/w/tokens:ro" -v "$PWD/pruebas:/w/pruebas:ro" -v "$PWD/dart:/w/dart" -w /w/dart dart:3.12 \
+       sh -c "dart pub get && dart analyze --fatal-infos && dart run tool/paridad.dart && dart run tool/contraste.dart"
      ```
      Después borrá `dart/.dart_tool` y `dart/pubspec.lock` (no se commitean).
    - Si el token cambia el aspecto del estilo o de los fragmentos: `npm run capturas` y, si es a propósito, `npm run capturas:regenerar` (skill `capturas-mapa`).
@@ -32,6 +32,8 @@ description: Sumar o cambiar un token del mapa de lib-mapa (estados de casa, pal
 ## Contraste
 
 `pruebas/tokens.test.mjs` mide AA (4,5:1 rótulos, 3:1 bordes) contra `contraste.fondosDelMapa`. Si un color nuevo no llega, **no lo oscurezcas por tu cuenta**: es una decisión de color (Cristian).
+
+El borde de una zona es otra cosa: no cambia el color, se dibuja con `bordeDeZona` (TS `ts/src/contraste.ts`, Dart `ContrasteMapa` en `dart/lib/contraste.dart`), que lo oscurece hasta 3:1 sobre los dos fondos (P1 de la revisión de lib-mapa#4, la regla de `ColoresZona.borde` del móvil). Las dos versiones se prueban contra `pruebas/contraste/casos.json`: si cambiás la regla, cambiá las dos y los casos.
 
 ## Versión y release
 

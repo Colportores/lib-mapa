@@ -1,0 +1,6 @@
+# Fin de línea LF en todos los checkouts (también en Windows con core.autocrlf=true): los .g. y la copia de
+# dart/assets/mapa/ se comparan byte a byte con lo que generan los generadores.
+* text=auto eol=lf
+*.pbf binary
+*.png binary
+*.pmtiles binary

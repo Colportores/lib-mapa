@@ -78,13 +78,21 @@ test('dado el número de puerta del cuadrado, cuando se mide sobre su relleno, e
 });
 
 test('dado un valor sin decidir, cuando se lee, entonces dice dónde se decide y trae el del panel y el del móvil, del mismo tipo', () => {
-  const pendientes = [tokens.zonaSinColor, tokens.zoom.maximo, tokens.estadosDeCasa.find((e) => e.franjas).franjas.clara];
+  const pendientes = [tokens.zonaSinColor];
   for (const p of pendientes) {
     assert.ok(esPendiente(p));
     assert.match(p.pendiente, /#\d+/);
     assert.equal(typeof p.panel, typeof p.movil);
   }
   assert.deepEqual(tokens.zonaSinColor, { pendiente: tokens.zonaSinColor.pendiente, panel: '#8A94A6', movil: '#13407A' });
+});
+
+test('dados el zoom máximo y la franja clara, cuando se leen, entonces son un valor único (decididos el 10/11, P2 y P3 de lib-mapa#4)', () => {
+  assert.equal(tokens.zoom.maximo, 19);
+  assert.ok(tokens.zoom.maximo > tokens.zoom.numerosDePuerta);
+  const franjas = tokens.estadosDeCasa.find((e) => e.franjas).franjas;
+  assert.equal(franjas.clara, '#4D76B1');
+  assert.ok(contraste('#FFFFFF', franjas.clara) >= tokens.contraste.rotulos, 'el glifo blanco sobre la franja clara es AA');
 });
 
 test('dados los fondos del contraste, cuando se comparan con la paleta del estilo, entonces son la tierra y los parques', async () => {
@@ -141,6 +149,8 @@ test('dado tokens.g.dart, cuando se lee, entonces cada color y texto de los toke
   assert.ok(dart.includes("glifo: '\\$'"), 'el $ de «Cobranza pendiente» va escapado');
   assert.ok(dart.includes('static const ValorPendiente<int> zonaSinColor = ValorPendiente('));
   assert.ok(dart.includes('static const double zoomCalle = 16.0;'));
+  assert.ok(dart.includes('static const double zoomMaximo = 19.0;'));
+  assert.ok(dart.includes('clara: 0xFF4D76B1)'));
 });
 
 test('dado el package.json, cuando se miran los exports, entonces cada destino existe (se instala por git con github:Colportores/lib-mapa#vX.Y.Z)', () => {

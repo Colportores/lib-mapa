@@ -62,6 +62,7 @@ test('dadas las zonas, cuando no traen `elegida`, entonces se dibujan como no el
   assert.deepEqual(relleno.paint['fill-opacity'], ['case', ['boolean', ['get', 'elegida'], false], 0.4, 0.22]);
   assert.deepEqual(borde.paint['line-width'], ['case', ['boolean', ['get', 'elegida'], false], 3, 2]);
   assert.deepEqual(relleno.paint['fill-color'], ['get', 'color']);
+  assert.deepEqual(borde.paint['line-color'], ['coalesce', ['get', 'borde'], ['get', 'color']], 'el borde con 3:1 que calcula el front (bordeDeZona), o el color si no lo trae');
   assert.equal(rotulo.type, 'symbol');
   assert.deepEqual(rotulo.layout['text-font'], ['NotoSans-Medium'], 'una fuente que está en assets/glyphs');
 });

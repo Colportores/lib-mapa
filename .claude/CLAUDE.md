@@ -23,8 +23,8 @@ Libreria compartida del mapa de Colportores (ADR-019): estilo MapLibre (v8), gli
 - `estilo/`: estilo + paleta + ajustes + fragmentos de capa (`capas/`); `validar.mjs` corre `gl-style-validate`.
 - `assets/`: glyphs (Noto Sans, OFL) y sprites (Protomaps, MIT).
 - `tokens/`: `tokens.json`, la unica fuente de los tokens.
-- `generadores/`: generadores de tokens a Dart y TS.
-- `dart/`, `ts/`: paquetes que consumen la app y el panel.
+- `generadores/`: generadores de tokens a Dart y TS, de la copia `dart/assets/mapa/` (`npm run generar-assets-dart`) y de la release.
+- `dart/`, `ts/`: paquetes que consumen la app y el panel. `dart/assets/mapa/` es una copia generada del estilo, los glyphs y los sprites (no se edita a mano). `bordeDeZona` (contraste de bordes) vive en `ts/src/contraste.ts` y `dart/lib/contraste.dart`, probados contra `pruebas/contraste/casos.json`.
 - `pruebas/`: tests, fixtures y capturas.
 
 ## Documentacion

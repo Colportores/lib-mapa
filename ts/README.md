@@ -9,6 +9,7 @@ npm instala el repo entero desde git (no un subdirectorio), así que el paquete 
 | `@colportores/lib-mapa` | todo lo de abajo (`src/index.ts`) |
 | `@colportores/lib-mapa/tokens` | `TOKENS` y `ESTADOS_DE_CASA`, `PALETA_ZONAS`, `ZONA_SIN_COLOR`, `ZOOM`, `ATRIBUCION`… (`src/tokens.g.ts`, `as const`) |
 | `@colportores/lib-mapa/capas` | `FUENTES`, `CAPAS`, `FUENTE_DE_CASAS` y `FRAGMENTOS` (`src/capas.g.ts`) |
+| `@colportores/lib-mapa/contraste` | `bordeDeZona(color)`: el borde de una zona con 3:1 sobre el mapa (va en la propiedad `borde` de cada zona del fragmento), `contraste` y `contrasteSobreElMapa` (`src/contraste.ts`, no se genera) |
 | `@colportores/lib-mapa/tokens.json` | el JSON de los tokens |
 | `@colportores/lib-mapa/estilo` | `armarEstilo` y compañía (JS, para el publicador de backend-supabase) |
 

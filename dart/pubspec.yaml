@@ -1,8 +1,22 @@
 name: colportores_mapa
-description: Tokens del mapa de Colportores (estados de casa, zonas, zooms, atribución), generados desde lib-mapa/tokens/tokens.json.
+description: Tokens, contraste, estilo, letras e íconos del mapa de Colportores, generados desde lib-mapa (tokens/tokens.json, estilo/ y assets/).
 version: 1.0.0
 publish_to: none
 repository: https://github.com/Colportores/lib-mapa
 
 environment:
   sdk: ^3.5.0
+
+# El estilo, las letras y los íconos del mapa para la app (ADR-019): una copia generada de estilo/ y assets/
+# (`npm run generar-assets-dart`, no se edita a mano). La app los lee como `packages/colportores_mapa/assets/mapa/…`.
+# Flutter no entra en las subcarpetas: cada carpeta con archivos va en la lista (pruebas/assets-dart.test.mjs).
+# El paquete sigue siendo Dart puro: esta sección solo la lee Flutter al armar la app.
+flutter:
+  assets:
+    - assets/mapa/
+    - assets/mapa/estilo/
+    - assets/mapa/glyphs/
+    - assets/mapa/glyphs/NotoSans-Italic/
+    - assets/mapa/glyphs/NotoSans-Medium/
+    - assets/mapa/glyphs/NotoSans-Regular/
+    - assets/mapa/sprites/

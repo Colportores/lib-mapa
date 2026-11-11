@@ -25,9 +25,10 @@ jobs:
       - name: Tests
         run: docker run --rm lib-mapa-dev npm test
 
-      # Los .g. (Dart y TS) están al día con tokens/tokens.json y el paquete TS compila.
-      - name: Tokens generados y TypeScript
-        run: docker run --rm lib-mapa-dev sh -c "npm run comprobar-tokens && npm run typecheck"
+      # Los .g. (Dart y TS) están al día con tokens/tokens.json, la copia de dart/assets/mapa/ con estilo/ y assets/,
+      # y el paquete TS compila.
+      - name: Tokens, assets del paquete Dart y TypeScript
+        run: docker run --rm lib-mapa-dev sh -c "npm run comprobar-tokens && npm run comprobar-assets-dart && npm run typecheck"
 
       # Genera el estilo en dist/estilo/ y los fragmentos de capa en dist/capas/, y les corre gl-style-validate.
       - name: Validar estilo y fragmentos de capa
@@ -59,9 +60,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # El paquete colportores_mapa (dart/) compila y sus constantes son las de tokens/tokens.json (Dart == JSON).
+      # El paquete colportores_mapa (dart/) compila, sus constantes son las de tokens/tokens.json (Dart == JSON) y
+      # ContrasteMapa.bordeDeZona da lo mismo que el lado TS en pruebas/contraste/casos.json.
       # Misma versión de Dart que la app móvil (Flutter 3.44).
-      - name: Analizar y comprobar la paridad
+      - name: Analizar, comprobar la paridad y el contraste
         run: >-
-          docker run --rm -v "$PWD/tokens:/w/tokens:ro" -v "$PWD/dart:/w/dart" -w /w/dart dart:3.12
-          sh -c "dart pub get && dart analyze --fatal-infos && dart run tool/paridad.dart"
+          docker run --rm -v "$PWD/tokens:/w/tokens:ro" -v "$PWD/pruebas:/w/pruebas:ro" -v "$PWD/dart:/w/dart" -w /w/dart dart:3.12
+          sh -c "dart pub get && dart analyze --fatal-infos && dart run tool/paridad.dart && dart run tool/contraste.dart"

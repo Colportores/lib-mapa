@@ -61,8 +61,15 @@ export const FRAGMENTOS = {
       "source": "colportores-zonas",
       "paint": {
         "line-color": [
-          "get",
-          "color"
+          "coalesce",
+          [
+            "get",
+            "borde"
+          ],
+          [
+            "get",
+            "color"
+          ]
         ],
         "line-width": [
           "case",

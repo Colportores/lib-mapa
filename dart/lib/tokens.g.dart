@@ -27,7 +27,7 @@ final class FranjasDeMarcador {
   final double angulo;
   final double anchoOscura;
   final double anchoClara;
-  final ValorPendiente<int> clara;
+  final int clara;
 }
 
 /// Cómo se ve una casa en el mapa: su estado (o el edificio sin estado). Colores en ARGB (`Color(relleno)`).
@@ -158,7 +158,7 @@ abstract final class EstadosDeCasa {
     tinta: 0xFFFFFFFF,
     tintaNumero: 0xFFFFFFFF,
     glifo: '⇢',
-    franjas: FranjasDeMarcador(angulo: 135.0, anchoOscura: 4.0, anchoClara: 3.0, clara: ValorPendiente(pendiente: 'lib-mapa#4 (P2 del archivo de pendientes del PR)', panel: 0xFF5C82B8, movil: 0xFF4D76B1)),
+    franjas: FranjasDeMarcador(angulo: 135.0, anchoOscura: 4.0, anchoClara: 3.0, clara: 0xFF4D76B1),
   );
 
   static const ventaCompleta = MarcadorDeCasa(
@@ -201,7 +201,7 @@ abstract final class TokensMapa {
   static const List<int> contrasteFondosDelMapa = [0xFFF6F5F0, 0xFFDDE8D3];
   static const double zoomPais = 5.5;
   static const double zoomCalle = 16.0;
-  static const ValorPendiente<double> zoomMaximo = ValorPendiente(pendiente: 'lib-mapa#4 (P3 del archivo de pendientes del PR)', panel: 19.0, movil: 18.0);
+  static const double zoomMaximo = 19.0;
   static const double zoomNumerosDePuerta = 16.0;
   static const double zoomCorteDeTiles = 15.0;
   static const double gruposRadio = 44.0;
