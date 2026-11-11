@@ -1,6 +1,6 @@
 name: colportores_mapa
 description: Tokens, contraste, estilo, letras e íconos del mapa de Colportores, generados desde lib-mapa (tokens/tokens.json, estilo/ y assets/).
-version: 1.0.0
+version: 1.1.0
 publish_to: none
 repository: https://github.com/Colportores/lib-mapa
 

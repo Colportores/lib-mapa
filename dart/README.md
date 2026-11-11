@@ -12,7 +12,7 @@ colportores_mapa:
 
 Trae (`import 'package:colportores_mapa/colportores_mapa.dart'`), en Dart puro, sin Flutter:
 
-- Los tokens generados (`lib/tokens.g.dart`). Los colores van como enteros ARGB (`Color(EstadosDeCasa.rechazo.relleno)`), los zooms en escala MapLibre y un valor que el panel y el móvil todavía no comparten como `ValorPendiente` (la app usa `.movil`; hoy solo `zonaSinColor`).
+- Los tokens generados (`lib/tokens.g.dart`). Los colores van como enteros ARGB (`Color(EstadosDeCasa.rechazo.relleno)`), los zooms en escala MapLibre y un valor que el panel y el móvil todavía no comparten como `ValorPendiente` (la app usa `.movil`; hoy ninguno: `zonaSinColor` es un solo color desde la 1.1.0).
 - El contraste de los bordes (`lib/contraste.dart`): `ContrasteMapa.bordeDeZona(color)` oscurece el color de una zona hasta 3:1 sobre la tierra y los parques (la regla de `ColoresZona.borde`), más `ContrasteMapa.entre` y `ContrasteMapa.sobreElMapa`.
 - El estilo, las letras y los íconos (`assets/mapa/`, ADR-019): `estilo/colportores.json` (con `https://REEMPLAZAR/estilo` y `pmtiles://REEMPLAZAR`, que la app reemplaza), `glyphs/`, `sprites/` y los avisos de licencia (`NOTICE.md`, `NOTICE-assets.md`). Están declarados en `flutter: assets:` del `pubspec.yaml`, así que la app los lee como `packages/colportores_mapa/assets/mapa/…` (por ejemplo, `rootBundle.loadString('packages/colportores_mapa/assets/mapa/estilo/colportores.json')`), sin declararlos ella. Es una copia generada (`npm run generar-assets-dart`): no se edita a mano.
 

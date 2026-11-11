@@ -25,7 +25,7 @@ test('dados los casos de contraste/casos.json, cuando se calcula el borde, enton
 });
 
 test('dada la paleta de zonas y la zona sin color, cuando se dibuja su borde, entonces tiene al menos 3:1 sobre la tierra y los parques', () => {
-  const colores = [...tokens.paletaZonas, tokens.zonaSinColor.panel, tokens.zonaSinColor.movil];
+  const colores = [...tokens.paletaZonas, tokens.zonaSinColor];
   for (const color of colores) {
     const borde = bordeDeZona(color);
     for (const fondo of tokens.contraste.fondosDelMapa) {

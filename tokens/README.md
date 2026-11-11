@@ -13,7 +13,7 @@
 | `grupos` | Cómo se agrupan las casas de lejos (radio, zoom máximo, colores) |
 | `atribucion` | «© OpenStreetMap contributors», la corta del móvil y la HTML de la fuente del estilo |
 
-Los valores salen de lo que ya dibujan el panel y el móvil, sin cambiar su aspecto. Si los dos fronts todavía no coinciden, el token va como `{ "pendiente": "<dónde se decide>", "panel": …, "movil": … }` y cada front usa el suyo hasta la decisión (hoy solo `zonaSinColor`; `zoom.maximo` = 19 y la franja clara #4D76B1 se decidieron el 10/11). Las claves que empiezan con `$` son comentarios.
+Los valores salen de lo que ya dibujan el panel y el móvil, sin cambiar su aspecto. Si los dos fronts todavía no coinciden, el token va como `{ "pendiente": "<dónde se decide>", "panel": …, "movil": … }` y cada front usa el suyo hasta la decisión (hoy ninguno: `zoom.maximo` = 19 y la franja clara #4D76B1 se decidieron el 10/11, y `zonaSinColor` = #8A94A6 el 11/11). Las claves que empiezan con `$` son comentarios.
 
 Para sumar o cambiar un token:
 

@@ -2,7 +2,7 @@
 
 Libreria compartida del mapa de Colportores: el estilo MapLibre (con los numeros de puerta de OpenStreetMap), los glifos, los sprites y los tokens de zonas y estados de casa. La usan el panel de coordinadores y la app movil, para que los dos dibujen el mismo mapa.
 
-**Estado: v1.0.0** — el estilo, la paleta, los glifos y los sprites (lib-mapa#2), los numeros de puerta de OSM (lib-mapa#3), los tokens con sus paquetes Dart y TS (lib-mapa#4) y las capturas de referencia, las skills y la release (lib-mapa#5). Los cambios de cada version estan en [CHANGELOG.md](./CHANGELOG.md).
+**Estado: v1.1.0** — el estilo, la paleta, los glifos y los sprites (lib-mapa#2), los numeros de puerta de OSM (lib-mapa#3), los tokens con sus paquetes Dart y TS (lib-mapa#4), las capturas de referencia, las skills y la release (lib-mapa#5) y la zona sin color unica, gris #8A94A6 (lib-mapa#12). Los cambios de cada version estan en [CHANGELOG.md](./CHANGELOG.md).
 
 ## Contexto
 
