@@ -90,11 +90,7 @@ export const TOKENS = {
         "angulo": 135,
         "anchoOscura": 4,
         "anchoClara": 3,
-        "clara": {
-          "pendiente": "lib-mapa#4 (P2 del archivo de pendientes del PR)",
-          "panel": "#5C82B8",
-          "movil": "#4D76B1"
-        }
+        "clara": "#4D76B1"
       }
     },
     {
@@ -144,11 +140,7 @@ export const TOKENS = {
   "zoom": {
     "pais": 5.5,
     "calle": 16,
-    "maximo": {
-      "pendiente": "lib-mapa#4 (P3 del archivo de pendientes del PR)",
-      "panel": 19,
-      "movil": 18
-    },
+    "maximo": 19,
     "numerosDePuerta": 16,
     "corteDeTiles": 15
   },
