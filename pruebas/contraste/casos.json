@@ -1,0 +1,19 @@
+{
+  "$comentario": "Casos de `bordeDeZona` (P1 de la revisión de lib-mapa#4): el color de una zona y el borde con el que se dibuja, con al menos 3:1 (contraste.bordes) sobre la tierra y los parques (contraste.fondosDelMapa). Los prueban el lado TS (pruebas/contraste.test.mjs) y el Dart (dart/tool/contraste.dart): los dos tienen que dar lo mismo. `borde` igual a `color` = ya llegaba y no se toca. Son los mismos resultados que `ColoresZona.borde` del móvil (comprobado contra la función de la app al traer la regla).",
+  "version": 1,
+  "casos": [
+    { "nombre": "paleta 1: azul, ya llega", "color": "#13407A", "borde": "#13407A" },
+    { "nombre": "paleta 2: verde, ya llega", "color": "#1F6E3A", "borde": "#1F6E3A" },
+    { "nombre": "paleta 3: ocre, 2,77:1 sobre los parques, se oscurece", "color": "#A98330", "borde": "#9B792C" },
+    { "nombre": "paleta 4: gris azulado, ya llega", "color": "#5B6B82", "borde": "#5B6B82" },
+    { "nombre": "paleta 5: rojo, ya llega", "color": "#A8312A", "borde": "#A8312A" },
+    { "nombre": "paleta 6: azul medio, ya llega", "color": "#3B5C8C", "borde": "#3B5C8C" },
+    { "nombre": "zona sin color del panel: gris, 2,41:1, se oscurece", "color": "#8A94A6", "borde": "#757D8D" },
+    { "nombre": "blanco", "color": "#FFFFFF", "borde": "#797979" },
+    { "nombre": "amarillo puro", "color": "#FFFF00", "borde": "#848400" },
+    { "nombre": "celeste", "color": "#87CEEB", "borde": "#59889B" },
+    { "nombre": "el amarillo de «Entrevista agendada»", "color": "#E0B43C", "borde": "#947828" },
+    { "nombre": "negro, el que más contrasta", "color": "#000000", "borde": "#000000" },
+    { "nombre": "en minúsculas se lee igual y sale en mayúsculas", "color": "#a98330", "borde": "#9B792C" }
+  ]
+}

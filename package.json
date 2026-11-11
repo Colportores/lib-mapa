@@ -1,6 +1,6 @@
 {
   "name": "@colportores/lib-mapa",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Librería compartida del mapa (estilo MapLibre, glifos, sprites, tokens de zonas) para el panel de coordinadores y la app móvil",
   "type": "module",
@@ -8,7 +8,40 @@
   "engines": {
     "node": ">=22"
   },
+  "exports": {
+    ".": "./ts/src/index.ts",
+    "./tokens": "./ts/src/tokens.g.ts",
+    "./capas": "./ts/src/capas.g.ts",
+    "./contraste": "./ts/src/contraste.ts",
+    "./tokens.json": "./tokens/tokens.json",
+    "./estilo": "./estilo/src/estilo.mjs",
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
   "scripts": {
-    "test": "node --test pruebas/*.test.mjs"
+    "test": "node --test pruebas/*.test.mjs",
+    "generar-tokens": "node generadores/cli.mjs",
+    "comprobar-tokens": "node generadores/cli.mjs --comprobar",
+    "generar-assets-dart": "node generadores/assets-dart.mjs",
+    "comprobar-assets-dart": "node generadores/assets-dart.mjs --comprobar",
+    "typecheck": "tsc -p ts/tsconfig.json",
+    "generar-estilo": "node estilo/src/cli.mjs --url-base https://REEMPLAZAR/estilo",
+    "generar-capas": "node estilo/capas/cli.mjs",
+    "validar-estilo": "node estilo/validar.mjs",
+    "check": "npm test && npm run comprobar-tokens && npm run comprobar-assets-dart && npm run typecheck && npm run generar-estilo && npm run generar-capas && npm run validar-estilo && npm run capturas",
+    "capturas": "xvfb-run -a node pruebas/visual/capturas.mjs",
+    "capturas:regenerar": "xvfb-run -a node pruebas/visual/capturas.mjs --regenerar",
+    "armar-release": "node generadores/release.mjs"
+  },
+  "dependencies": {
+    "@protomaps/basemaps": "5.7.2"
+  },
+  "devDependencies": {
+    "@maplibre/maplibre-gl-native": "6.4.1",
+    "@maplibre/maplibre-gl-style-spec": "^26.6.0",
+    "pixelmatch": "7.1.0",
+    "pmtiles": "4.5.0",
+    "pngjs": "7.0.0",
+    "typescript": "^5.9.3"
   }
 }

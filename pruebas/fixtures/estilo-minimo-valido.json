@@ -1,0 +1,8 @@
+{
+  "version": 8,
+  "name": "fixture-valido",
+  "sources": {},
+  "layers": [
+    { "id": "fondo", "type": "background", "paint": { "background-color": "#F6F5F0" } }
+  ]
+}

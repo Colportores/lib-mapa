@@ -1,0 +1,67 @@
+{
+  "$comentario": "Casos de prueba de la lógica del catálogo de mapas (lib-mapa#4), para que el panel (catalogo.ts) y la app (catalogo_tiles_model.dart + PaqueteTiles.cubre) los corran con el mismo catálogo y den lo mismo. Contrato: docs/mapas-tiles.md de backend-supabase («Cómo se consume» y «El catálogo»). Entrada: el catálogo de `catalogo` (relativo a este archivo), leído desde `urlDelCatalogo`, y el `ambito_id` de una ciudad (`public.ciudad.id`). Salida: el paquete de esa ciudad (`nivel: ciudad`) con la URL absoluta de cada parte, en orden, o `null` si no hay uno que se pueda usar. Un paquete mal armado se descarta solo, sin dejar sin mapa a las demás ciudades. Solo están los comportamientos en los que el panel y la app ya coinciden (pruebas/catalogo.test.mjs los corre contra un traslado de cada uno); las diferencias que quedan van en el PR de lib-mapa#4.",
+  "version": 1,
+  "catalogo": "catalogo-de-ejemplo.json",
+  "urlDelCatalogo": "https://ejemplo.supabase.co/storage/v1/object/public/mapas/catalogo.json",
+  "casos": [
+    {
+      "nombre": "elige el paquete de la ciudad por su ambito_id y resuelve la ruta relativa contra la URL del catálogo",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d40",
+      "esperado": {
+        "nombre": "Montevideo",
+        "partes": ["https://ejemplo.supabase.co/storage/v1/object/public/mapas/paquetes/ciudad/montevideo.581c30124839.pmtiles"]
+      }
+    },
+    {
+      "nombre": "una ciudad partida en dos archivos trae las dos partes, en el orden del catálogo",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d41",
+      "esperado": {
+        "nombre": "Salto",
+        "partes": [
+          "https://ejemplo.supabase.co/storage/v1/object/public/mapas/paquetes/ciudad/salto.parte1de2.aaaaaaaaaaaa.pmtiles",
+          "https://ejemplo.supabase.co/storage/v1/object/public/mapas/paquetes/ciudad/salto.parte2de2.bbbbbbbbbbbb.pmtiles"
+        ]
+      }
+    },
+    {
+      "nombre": "una ciudad que no está en el catálogo no tiene paquete",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d99",
+      "esperado": null
+    },
+    {
+      "nombre": "no se elige por el nombre ni por el id del paquete: solo por ambito_id",
+      "ambitoId": "ciudad-montevideo",
+      "esperado": null
+    },
+    {
+      "nombre": "un paquete sin partes se descarta",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d42",
+      "esperado": null
+    },
+    {
+      "nombre": "una parte en otro servidor (URL absoluta) se descarta",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d43",
+      "esperado": null
+    },
+    {
+      "nombre": "una parte con //host (sin esquema) se descarta",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d44",
+      "esperado": null
+    },
+    {
+      "nombre": "una parte que sube de carpeta (../) y sale del bucket se descarta",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d45",
+      "esperado": null
+    },
+    {
+      "nombre": "una parte con ruta absoluta (/…) fuera de la carpeta del catálogo se descarta",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d46",
+      "esperado": null
+    },
+    {
+      "nombre": "si una sola parte es mala se descarta el paquete entero (no se dibuja media ciudad)",
+      "ambitoId": "0199a3f0-7c1e-7a4b-9d3e-5f2b8c6a1d47",
+      "esperado": null
+    }
+  ]
+}
