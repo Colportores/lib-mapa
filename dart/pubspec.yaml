@@ -1,6 +1,6 @@
 name: colportores_mapa
 description: Tokens del mapa de Colportores (estados de casa, zonas, zooms, atribución), generados desde lib-mapa/tokens/tokens.json.
-version: 0.0.0
+version: 1.0.0
 publish_to: none
 repository: https://github.com/Colportores/lib-mapa
 

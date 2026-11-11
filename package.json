@@ -1,6 +1,6 @@
 {
   "name": "@colportores/lib-mapa",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Librería compartida del mapa (estilo MapLibre, glifos, sprites, tokens de zonas) para el panel de coordinadores y la app móvil",
   "type": "module",
@@ -25,13 +25,20 @@
     "generar-estilo": "node estilo/src/cli.mjs --url-base https://REEMPLAZAR/estilo",
     "generar-capas": "node estilo/capas/cli.mjs",
     "validar-estilo": "node estilo/validar.mjs",
-    "check": "npm test && npm run comprobar-tokens && npm run typecheck && npm run generar-estilo && npm run generar-capas && npm run validar-estilo"
+    "check": "npm test && npm run comprobar-tokens && npm run typecheck && npm run generar-estilo && npm run generar-capas && npm run validar-estilo && npm run capturas",
+    "capturas": "xvfb-run -a node pruebas/visual/capturas.mjs",
+    "capturas:regenerar": "xvfb-run -a node pruebas/visual/capturas.mjs --regenerar",
+    "armar-release": "node generadores/release.mjs"
   },
   "dependencies": {
     "@protomaps/basemaps": "5.7.2"
   },
   "devDependencies": {
+    "@maplibre/maplibre-gl-native": "6.4.1",
     "@maplibre/maplibre-gl-style-spec": "^26.6.0",
+    "pixelmatch": "7.1.0",
+    "pmtiles": "4.5.0",
+    "pngjs": "7.0.0",
     "typescript": "^5.9.3"
   }
 }

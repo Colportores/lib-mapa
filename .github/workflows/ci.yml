@@ -13,11 +13,11 @@ jobs:
   check:
     name: tests (Docker)
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
-      # La misma imagen que el desarrollo local (dockerfile.dev, Node 22): el check corre adentro.
+      # La misma imagen que el desarrollo local (dockerfile.dev: Ubuntu 24.04, Node 22, Mesa y Xvfb): el check corre adentro.
       - name: Construir imagen de desarrollo
         run: docker build -f dockerfile.dev -t lib-mapa-dev .
 
@@ -32,6 +32,25 @@ jobs:
       # Genera el estilo en dist/estilo/ y los fragmentos de capa en dist/capas/, y les corre gl-style-validate.
       - name: Validar estilo y fragmentos de capa
         run: docker run --rm lib-mapa-dev sh -c "npm run generar-estilo && npm run generar-capas && npm run validar-estilo"
+
+      # Dibuja el estilo con MapLibre Native (Xvfb + Mesa) a z16, z17 y z18 sobre la muestra de Montevideo y lo
+      # compara con pruebas/visual/referencia/ (con tolerancia). Si no coincide, las capturas nuevas y las
+      # diferencias quedan como artefacto «capturas».
+      - name: Capturas z16, z17 y z18
+        run: docker run --rm -v "$PWD/dist:/app/dist" lib-mapa-dev npm run capturas
+
+      - name: Subir las capturas que no coinciden
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas
+          path: dist/capturas/
+          if-no-files-found: ignore
+
+      # Los archivos de la release (estilo, glyphs y sprites, notas del CHANGELOG) se arman sin publicar nada:
+      # comprueba que las versiones del package.json y de dart/pubspec.yaml coinciden y que el CHANGELOG tiene la sección.
+      - name: Armar la release (sin publicar)
+        run: docker run --rm lib-mapa-dev node generadores/release.mjs
 
   dart:
     name: paridad Dart (Docker)

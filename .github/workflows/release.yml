@@ -1,0 +1,45 @@
+name: Release
+
+# Al subir un tag vX.Y.Z (ADR-019): corre el check completo en la imagen de dockerfile.dev (la misma del CI y del
+# desarrollo local) y publica la release de GitHub con el estilo, los glyphs y los sprites y la sección del
+# CHANGELOG. Los fronts usan el tag (pub git / npm github:); la release es para quien quiera los archivos sueltos.
+on:
+  push:
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: release (Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construir imagen de desarrollo
+        run: docker build -f dockerfile.dev -t lib-mapa-dev .
+
+      # Tests, tokens al día, typecheck, estilo y fragmentos válidos y capturas z16/z17/z18 contra la referencia.
+      - name: Check completo
+        run: docker run --rm lib-mapa-dev npm run check
+
+      # Falla si el tag no es la versión del package.json y de dart/pubspec.yaml o si falta la sección del CHANGELOG.
+      - name: Armar los archivos de la release
+        run: docker run --rm -v "$PWD/dist:/app/dist" lib-mapa-dev node generadores/release.mjs --tag "$GITHUB_REF_NAME"
+
+      - name: Publicar la release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --verify-tag \
+            --title "lib-mapa $GITHUB_REF_NAME" \
+            --notes-file dist/release/NOTAS.md \
+            dist/release/colportores.json \
+            "dist/release/lib-mapa-recursos-$GITHUB_REF_NAME.tar.gz"
