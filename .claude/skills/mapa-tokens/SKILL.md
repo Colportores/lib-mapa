@@ -16,7 +16,7 @@ description: Sumar o cambiar un token del mapa de lib-mapa (estados de casa, pal
 ## Sumar o cambiar un token
 
 1. Editá `tokens/tokens.json`. Convenciones: camelCase; colores `#RRGGBB` en mayúsculas; zooms en escala **MapLibre**; las claves que empiezan con `$` son comentarios (no se generan): explicá de dónde sale el valor.
-2. Si los dos fronts todavía no coinciden, el valor va como `{ "pendiente": "<dónde se decide>", "panel": …, "movil": … }`. **No elijas uno vos**: la decisión es de Cristian (o del orquestador, si es §2). Hoy: `zonaSinColor` (`zoom.maximo` = 19 y la franja clara #4D76B1 se decidieron el 10/11).
+2. Si los dos fronts todavía no coinciden, el valor va como `{ "pendiente": "<dónde se decide>", "panel": …, "movil": … }`. **No elijas uno vos**: la decisión es de Cristian (o del orquestador, si es §2). Hoy no queda ninguno (`zoom.maximo` = 19 y la franja clara #4D76B1 se decidieron el 10/11; `zonaSinColor` = #8A94A6, el 11/11).
 3. Regenerá (en Docker): `docker compose -f compose.dev.yml run --rm -T app npm run generar-tokens`.
 4. Token nuevo: sumalo en `dart/tool/paridad.dart` (la paridad falla hasta que el JSON que arma desde las constantes coincide con `tokens.json`). Cuando un pendiente se decide: reemplazá el objeto por el valor, regenerá y cambiá `_color`/`_numero` en `paridad.dart`.
 5. Verificá:

@@ -2,7 +2,7 @@
   "version": 8,
   "name": "Colportores",
   "metadata": {
-    "colportores:estilo": "1.0.0",
+    "colportores:estilo": "1.1.0",
     "colportores:paleta": 1,
     "colportores:basemaps": "5.7.2"
   },

@@ -10,6 +10,16 @@ Lo que cambia en cada release de `lib-mapa` (tag `vX.Y.Z`). Los fronts suben el 
 
 La versión va en `package.json` y en `dart/pubspec.yaml` (las dos iguales) y dentro del estilo (`metadata["colportores:estilo"]`). Cómo sacar una release: ver «Release» en el [README](./README.md#release).
 
+## [1.1.0] - 2026-11-11
+
+### Cambiado
+
+- `zonaSinColor` es un solo valor, el gris `#8A94A6` («sin color»), para el panel y el móvil (decisión de Cristian del 11/11, lib-mapa#12). Antes era `{ pendiente, panel, movil }`: ahora `TokensMapa.zonaSinColor` (Dart) es un `int` y `ZONA_SIN_COLOR` (TS) un `"#8A94A6"`. En la app, una zona sin color pasa de azul (#13407A) a gris: deja de leer `.movil` (front-colportores-mobile#695); el panel toma el token en vez de su constante (front-coordinadores-web#176). El borde sigue por `bordeDeZona` (3:1). `ValorPendiente` se sigue exportando para el próximo valor sin decidir.
+
+### Decidido
+
+- El aspecto de los fragmentos de capa (P4 de lib-mapa#4): cada app con su diseño aprobado. Los fragmentos quedan con el aspecto del panel (más el rótulo de zona, común) y el móvil sigue con los suyos; nada cambia en esta librería.
+
 ## [1.0.0] - 2026-11-10
 
 Primera release: lo que dibuja el mapa de Colportores, en un solo lugar para la app, el panel y el publicador (ADR-019).
@@ -31,4 +41,5 @@ Primera release: lo que dibuja el mapa de Colportores, en un solo lugar para la 
 - `zonaSinColor` va como `{ pendiente, panel, movil }` (gris #8A94A6 en el panel, azul #13407A en el móvil): cada front usa su valor hasta que se decida (front-coordinadores-web#148).
 - Que la app dibuje con los fragmentos de capa (zonas, casas de lejos, grupos): hoy tienen el aspecto del panel y el móvil sigue con los suyos (P4 de lib-mapa#4).
 
+[1.1.0]: https://github.com/Colportores/lib-mapa/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Colportores/lib-mapa/releases/tag/v1.0.0

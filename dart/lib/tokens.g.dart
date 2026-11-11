@@ -195,7 +195,7 @@ abstract final class TokensMapa {
   );
 
   static const List<int> paletaZonas = [0xFF13407A, 0xFF1F6E3A, 0xFFA98330, 0xFF5B6B82, 0xFFA8312A, 0xFF3B5C8C];
-  static const ValorPendiente<int> zonaSinColor = ValorPendiente(pendiente: 'front-coordinadores-web#148 (decisión de UX, Cristian §3)', panel: 0xFF8A94A6, movil: 0xFF13407A);
+  static const int zonaSinColor = 0xFF8A94A6;
   static const double contrasteBordes = 3.0;
   static const double contrasteRotulos = 4.5;
   static const List<int> contrasteFondosDelMapa = [0xFFF6F5F0, 0xFFDDE8D3];

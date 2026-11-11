@@ -124,11 +124,7 @@ export const TOKENS = {
     "#A8312A",
     "#3B5C8C"
   ],
-  "zonaSinColor": {
-    "pendiente": "front-coordinadores-web#148 (decisión de UX, Cristian §3)",
-    "panel": "#8A94A6",
-    "movil": "#13407A"
-  },
+  "zonaSinColor": "#8A94A6",
   "contraste": {
     "bordes": 3,
     "rotulos": 4.5,

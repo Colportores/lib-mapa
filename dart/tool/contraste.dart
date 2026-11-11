@@ -26,11 +26,7 @@ List<String> fallas(List<Map<String, Object?>> casos) {
     }
     if (borde >> 24 != 0xFF) fallas.add('${caso['nombre']}: el borde no es opaco');
   }
-  final colores = [
-    ...TokensMapa.paletaZonas,
-    TokensMapa.zonaSinColor.panel,
-    TokensMapa.zonaSinColor.movil,
-  ];
+  final colores = [...TokensMapa.paletaZonas, TokensMapa.zonaSinColor];
   for (final color in colores) {
     final borde = ContrasteMapa.bordeDeZona(color);
     for (final fondo in TokensMapa.contrasteFondosDelMapa) {

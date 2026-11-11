@@ -77,14 +77,24 @@ test('dado el número de puerta del cuadrado, cuando se mide sobre su relleno, e
   }
 });
 
-test('dado un valor sin decidir, cuando se lee, entonces dice dónde se decide y trae el del panel y el del móvil, del mismo tipo', () => {
-  const pendientes = [tokens.zonaSinColor];
-  for (const p of pendientes) {
-    assert.ok(esPendiente(p));
-    assert.match(p.pendiente, /#\d+/);
-    assert.equal(typeof p.panel, typeof p.movil);
-  }
-  assert.deepEqual(tokens.zonaSinColor, { pendiente: tokens.zonaSinColor.pendiente, panel: '#8A94A6', movil: '#13407A' });
+test('dado un valor sin decidir, cuando se reconoce, entonces es el objeto { pendiente, panel, movil } y nada más', () => {
+  assert.ok(esPendiente({ pendiente: 'x#1', panel: '#000000', movil: '#FFFFFF' }));
+  for (const valor of ['#8A94A6', 19, null, [], { panel: '#000000', movil: '#FFFFFF' }]) assert.ok(!esPendiente(valor), JSON.stringify(valor));
+});
+
+test('dados los tokens, cuando se recorren, entonces no queda ningún valor sin decidir (zonaSinColor se decidió el 11/11)', () => {
+  const pendientes = [];
+  const recorrer = (valor, ruta) => {
+    if (esPendiente(valor)) pendientes.push(ruta);
+    else if (valor !== null && typeof valor === 'object') for (const [k, v] of Object.entries(valor)) recorrer(v, `${ruta}.${k}`);
+  };
+  recorrer(tokens, '$');
+  assert.deepEqual(pendientes, []);
+});
+
+test('dada la zona sin color, cuando se lee, entonces es un solo gris #8A94A6 para el panel y el móvil (decisión de Cristian del 11/11, lib-mapa#12)', () => {
+  assert.equal(tokens.zonaSinColor, '#8A94A6');
+  assert.ok(!tokens.paletaZonas.includes(tokens.zonaSinColor), 'no se confunde con un color de la paleta');
 });
 
 test('dados el zoom máximo y la franja clara, cuando se leen, entonces son un valor único (decididos el 10/11, P2 y P3 de lib-mapa#4)', () => {
@@ -147,7 +157,8 @@ test('dado tokens.g.dart, cuando se lee, entonces cada color y texto de los toke
     assert.ok(dart.includes(`nombre: ${textoDart(e.nombre)}`), e.nombre);
   }
   assert.ok(dart.includes("glifo: '\\$'"), 'el $ de «Cobranza pendiente» va escapado');
-  assert.ok(dart.includes('static const ValorPendiente<int> zonaSinColor = ValorPendiente('));
+  assert.ok(dart.includes('static const int zonaSinColor = 0xFF8A94A6;'), 'la zona sin color es un solo color (lib-mapa#12)');
+  assert.ok(dart.includes('final class ValorPendiente<T> {'), 'ValorPendiente se sigue exportando para el próximo valor sin decidir');
   assert.ok(dart.includes('static const double zoomCalle = 16.0;'));
   assert.ok(dart.includes('static const double zoomMaximo = 19.0;'));
   assert.ok(dart.includes('clara: 0xFF4D76B1)'));
