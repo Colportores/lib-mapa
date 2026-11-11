@@ -4,4 +4,5 @@
 /// colores van como enteros ARGB, listos para `Color(…)`.
 library;
 
+export 'contraste.dart';
 export 'tokens.g.dart';

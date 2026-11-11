@@ -12,6 +12,7 @@
     ".": "./ts/src/index.ts",
     "./tokens": "./ts/src/tokens.g.ts",
     "./capas": "./ts/src/capas.g.ts",
+    "./contraste": "./ts/src/contraste.ts",
     "./tokens.json": "./tokens/tokens.json",
     "./estilo": "./estilo/src/estilo.mjs",
     "./package.json": "./package.json",

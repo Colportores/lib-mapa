@@ -10,7 +10,8 @@
 //
 // Lo que cada feature tiene que traer:
 // - zonas (FUENTES.zonas, polígonos): `color` (#RRGGBB; una zona sin color la resuelve el front con el token
-//   `zonaSinColor`) y, opcional, `elegida` (booleano: la zona elegida se ve más firme).
+//   `zonaSinColor`), `borde` (#RRGGBB: `bordeDeZona(color)` de ts/ o dart/, el color oscurecido hasta 3:1 sobre
+//   el mapa; si falta, el borde va con `color`) y, opcional, `elegida` (booleano: la zona elegida se ve más firme).
 // - rótulos de zonas (FUENTES.zonasRotulos, puntos): `rotulo` (el nombre que va escrito).
 // - casas (FUENTES.casas, puntos, agrupada con `fuenteDeCasas`): `estado` (la `clave` de `estadosDeCasa`).
 
@@ -41,7 +42,10 @@ export function fuenteDeCasas(tokens = TOKENS) {
   return { type: 'geojson', cluster: true, clusterRadius: tokens.grupos.radio, clusterMaxZoom: tokens.grupos.zoomMaximo };
 }
 
-/** Zonas: relleno translúcido y borde del color de la zona (más firmes en la elegida) y el nombre encima. */
+/**
+ * Zonas: relleno translúcido del color de la zona y borde con al menos 3:1 sobre el mapa (`borde`, P1 de la
+ * revisión de lib-mapa#4), más firmes en la elegida, y el nombre encima.
+ */
 export function capasDeZonas() {
   return [
     {
@@ -58,7 +62,7 @@ export function capasDeZonas() {
       type: 'line',
       source: FUENTES.zonas,
       paint: {
-        'line-color': ['get', 'color'],
+        'line-color': ['coalesce', ['get', 'borde'], ['get', 'color']],
         'line-width': ['case', ['boolean', ['get', 'elegida'], false], 3, 2],
       },
     },
